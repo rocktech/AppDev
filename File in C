@@ -1,0 +1,111 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+#define max 1000
+
+/**
+*@author  Keiven Marques
+*
+*/
+
+typedef struct _aluno
+{
+    char nome[max];
+    float nota;
+    int numero;
+
+
+}aluno;
+
+int main()
+{
+    aluno regist[max];
+    int n,i;
+    FILE *registro;
+
+    registro =fopen("aluno.txt","w");
+
+    if(registro==NULL)
+    {
+        printf("Erro--Nao foi posivel abrir o arquivo");
+        fclose(registro);
+exit(0);
+    }
+rewind(registro);
+  fprintf(registro,"\t\tRegistro de aluno\n\n");
+  fprintf(registro, "Nome \t Numero \tNota\n");
+       printf("Entra com o numero de registro\n");
+       fflush(stdin);
+       scanf("%d",&n);
+       fflush(stdout);
+
+for(i=0; i<n ;i++)
+
+{printf("Informacao do aluno\n");
+
+    printf("\nNome do aluno: ");
+    fflush(stdin);
+    gets ( regist[i].nome ) ;
+    fflush(stdout);
+
+    printf("\nAluno numero: ");
+    fflush(stdin);
+    scanf("%d",&regist[i].numero);
+    fflush(stdout);
+
+    printf("\nNota do aluno: ");
+    fflush(stdin);
+    scanf("%f",&regist[i].nota);
+    fflush(stdout);
+
+    fprintf(registro,"%s     \t%d     \t %.2f    \n",regist[i].nome,regist[i].numero, regist[i].nota);
+system("cls");
+}
+fclose(registro);
+
+    FILE *abler;
+
+    abler =fopen("aluno.txt","r");
+
+    if(abler==NULL)
+    {
+        printf("Erro--Nao foi posivel abrir o arquivo");
+        fclose(abler);
+
+    }
+
+char ename[max] ;
+int enumero ;
+float enota ;
+
+
+
+fseek(abler,44,SEEK_SET);
+
+
+
+printf("\t\tRegistro de aluno\n\n");
+printf( "Nome \t Numero \tNota\n");
+
+fflush(stdin);
+i=0;
+while ( !feof(abler)        )
+    {
+
+        fscanf ( abler, "%s     %d     %f\n", regist[i].nome, &regist[i].numero, &regist[i].nota );
+printf("\n %s       %d      %.02f", regist[i].nome, regist[i].numero, regist[i].nota);
+
+i++;
+}
+
+
+    if (feof(abler))
+        printf("\n\n Fim do arquivo");
+    if (ferror(abler))
+        printf("\n\n Erro.");
+
+fclose(abler);
+
+}
+
